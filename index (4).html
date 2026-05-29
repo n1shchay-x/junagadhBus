@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JunagadhBus — Live Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ── ALERT TICKER ── -->
+  <div class="ticker-bar" id="tickerBar">
+    <span class="ticker-pill">LIVE</span>
+    <div class="ticker-overflow">
+      <div class="ticker-content" id="tickerContent">
+        <span>Bus GJ-18-Z-1045 (Junagadh–Somnath) running 20 min late near Keshod</span>
+        <span class="ticker-sep">|</span>
+        <span>Bus GJ-18-Z-1021 (Veraval Express) departed on schedule — 07:30 AM</span>
+        <span class="ticker-sep">|</span>
+        <span>Bus GJ-18-Z-1087 (Jetpur–Junagadh) delayed 15 min — engine check at Manavadar</span>
+        <span class="ticker-sep">|</span>
+        <span>New Mini Bus service: Junagadh — Girnar Taleti every 30 minutes from 05:00 AM</span>
+        <span class="ticker-sep">|</span>
+        <span>GSRTC Junagadh Depot Platform 3 temporarily closed for maintenance</span>
+        <span class="ticker-sep">|</span>
+        <span>Bus GJ-18-Z-1073 (Junagadh–Visavadar) delayed — check revised timing</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── NAVBAR ── -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="2" y="9" width="24" height="14" rx="3.5" fill="url(#nb1)"/>
+            <rect x="5" y="5" width="18" height="6" rx="2" fill="url(#nb2)"/>
+            <rect x="9" y="12" width="4" height="4" rx="1" fill="white" opacity="0.9"/>
+            <rect x="15" y="12" width="4" height="4" rx="1" fill="white" opacity="0.9"/>
+            <circle cx="7.5" cy="23" r="2.5" fill="white" opacity="0.95"/>
+            <circle cx="20.5" cy="23" r="2.5" fill="white" opacity="0.95"/>
+            <defs>
+              <linearGradient id="nb1" x1="2" y1="9" x2="26" y2="23">
+                <stop stop-color="#1d6ef5"/>
+                <stop offset="1" stop-color="#0f4cc2"/>
+              </linearGradient>
+              <linearGradient id="nb2" x1="5" y1="5" x2="23" y2="11">
+                <stop stop-color="#4a8ff8"/>
+                <stop offset="1" stop-color="#1d6ef5"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">JunagadhBus</span>
+          <span class="brand-sub">GSRTC Division Tracker</span>
+        </div>
+      </div>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a class="nav-link active" href="#" data-section="home">Dashboard</a></li>
+        <li><a class="nav-link" href="#" data-section="routes">Routes</a></li>
+        <li>
+          <a class="nav-link" href="#" data-section="favorites">
+            Favourites
+            <span class="fav-count" id="navFavCount">0</span>
+          </a>
+        </li>
+      </ul>
+
+      <div class="nav-right">
+        <div class="nav-clock" id="navClock">00:00:00</div>
+        <button class="theme-btn" id="themeBtn" aria-label="Toggle theme">
+          <svg id="themeIconDark" viewBox="0 0 20 20" fill="currentColor" width="16" height="16"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
+          <svg id="themeIconLight" viewBox="0 0 20 20" fill="currentColor" width="16" height="16" style="display:none"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"/></svg>
+        </button>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#" class="mob-link" data-section="home">Dashboard</a>
+      <a href="#" class="mob-link" data-section="routes">Routes</a>
+      <a href="#" class="mob-link" data-section="favorites">Favourites</a>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <header class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="hero-tag">Junagadh · Gujarat · India</div>
+        <h1 class="hero-heading">Live Bus Tracker</h1>
+        <p class="hero-desc">Real-time departure and arrival information for GSRTC buses operating from Junagadh to Veraval, Somnath, Keshod, Mendarda, Girnar and all surrounding villages.</p>
+      </div>
+
+      <!-- SEARCH -->
+      <div class="search-block">
+        <div class="search-wrap" id="searchWrap">
+          <div class="search-icon-wrap">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" width="18" height="18">
+              <circle cx="8.5" cy="8.5" r="5.5"/>
+              <line x1="12.5" y1="12.5" x2="17" y2="17"/>
+            </svg>
+          </div>
+          <input
+            type="text"
+            id="searchInput"
+            class="search-input"
+            placeholder="Search by bus number, village or destination..."
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button class="search-clear-btn" id="searchClearBtn" aria-label="Clear search">
+            <svg viewBox="0 0 16 16" fill="currentColor" width="12" height="12">
+              <path d="M4.293 4.293a1 1 0 011.414 0L8 6.586l2.293-2.293a1 1 0 111.414 1.414L9.414 8l2.293 2.293a1 1 0 01-1.414 1.414L8 9.414l-2.293 2.293a1 1 0 01-1.414-1.414L6.586 8 4.293 5.707a1 1 0 010-1.414z"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Suggestion chips -->
+        <div class="chip-row">
+          <button class="chip" data-q="Veraval">Veraval</button>
+          <button class="chip" data-q="Somnath">Somnath</button>
+          <button class="chip" data-q="Keshod">Keshod</button>
+          <button class="chip" data-q="Mendarda">Mendarda</button>
+          <button class="chip" data-q="Girnar">Girnar</button>
+          <button class="chip" data-q="Jetpur">Jetpur</button>
+          <button class="chip" data-q="Manavadar">Manavadar</button>
+        </div>
+      </div>
+
+      <!-- Stats strip -->
+      <div class="stats-strip">
+        <div class="stat-cell" data-target="23">
+          <span class="stat-n" id="stat0">0</span>
+          <span class="stat-l">Total Buses</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-cell" data-target="14">
+          <span class="stat-n" id="stat1">0</span>
+          <span class="stat-l">Running Now</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-cell" data-target="3">
+          <span class="stat-n" id="stat2">0</span>
+          <span class="stat-l">Delayed</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-cell" data-target="18">
+          <span class="stat-n" id="stat3">0</span>
+          <span class="stat-l">Villages</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── MAIN ── -->
+  <main class="main" id="mainSection">
+
+    <!-- Controls bar -->
+    <div class="controls-bar">
+      <div class="filter-group" id="filterGroup">
+        <button class="ftab active" data-filter="all">All Buses</button>
+        <button class="ftab" data-filter="running">Running</button>
+        <button class="ftab" data-filter="delayed">Delayed</button>
+        <button class="ftab" data-filter="village">Village Routes</button>
+        <button class="ftab" data-filter="express">Express</button>
+      </div>
+      <div class="controls-right">
+        <div class="last-sync" id="lastSync">Synced just now</div>
+        <div class="sort-group">
+          <label class="sort-label" for="sortSel">Sort</label>
+          <select id="sortSel" class="sort-sel">
+            <option value="departure">Departure</option>
+            <option value="status">Status</option>
+            <option value="occupancy">Occupancy</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Result meta -->
+    <div class="result-meta">
+      <span id="resultCount">Loading buses...</span>
+    </div>
+
+    <!-- Loading -->
+    <div class="loading-state" id="loadingState">
+      <div class="loader-track">
+        <div class="loader-bar"></div>
+      </div>
+      <p class="loading-label">Fetching live data</p>
+    </div>
+
+    <!-- Grid -->
+    <div class="bus-grid" id="busGrid"></div>
+
+    <!-- Empty -->
+    <div class="empty-state hidden" id="emptyState">
+      <div class="empty-icon">
+        <svg viewBox="0 0 64 64" fill="none" width="56" height="56">
+          <rect x="8" y="20" width="48" height="30" rx="6" stroke="currentColor" stroke-width="2"/>
+          <rect x="14" y="12" width="36" height="12" rx="3" stroke="currentColor" stroke-width="2"/>
+          <circle cx="20" cy="50" r="5" stroke="currentColor" stroke-width="2"/>
+          <circle cx="44" cy="50" r="5" stroke="currentColor" stroke-width="2"/>
+          <line x1="28" y1="32" x2="36" y2="32" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <line x1="32" y1="28" x2="32" y2="36" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <h3>No buses found</h3>
+      <p>Try a different route, village name, or bus number.</p>
+      <button class="btn-primary" id="resetBtn">Show All Buses</button>
+    </div>
+
+  </main>
+
+  <!-- ── ROUTE MODAL ── -->
+  <div class="modal-backdrop" id="modalBackdrop">
+    <div class="modal" id="modalBox" role="dialog" aria-modal="true">
+      <div class="modal-top">
+        <div>
+          <div class="modal-tag" id="modalTag"></div>
+          <h2 class="modal-title" id="modalTitle"></h2>
+        </div>
+        <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close">
+          <svg viewBox="0 0 16 16" fill="currentColor" width="14" height="14">
+            <path d="M4.293 4.293a1 1 0 011.414 0L8 6.586l2.293-2.293a1 1 0 111.414 1.414L9.414 8l2.293 2.293a1 1 0 01-1.414 1.414L8 9.414l-2.293 2.293a1 1 0 01-1.414-1.414L6.586 8 4.293 5.707a1 1 0 010-1.414z"/>
+          </svg>
+        </button>
+      </div>
+      <div class="modal-chips" id="modalChips"></div>
+      <div class="modal-section-label">Route Stops</div>
+      <div class="route-timeline" id="routeTimeline"></div>
+    </div>
+  </div>
+
+  <!-- ── NOTIFICATION ── -->
+  <div class="notif" id="notif">
+    <div class="notif-left">
+      <div class="notif-dot"></div>
+      <div>
+        <div class="notif-title" id="notifTitle">Delay Alert</div>
+        <div class="notif-msg" id="notifMsg"></div>
+      </div>
+    </div>
+    <button class="notif-close" id="notifCloseBtn" aria-label="Dismiss">
+      <svg viewBox="0 0 16 16" fill="currentColor" width="11" height="11">
+        <path d="M4.293 4.293a1 1 0 011.414 0L8 6.586l2.293-2.293a1 1 0 111.414 1.414L9.414 8l2.293 2.293a1 1 0 01-1.414 1.414L8 9.414l-2.293 2.293a1 1 0 01-1.414-1.414L6.586 8 4.293 5.707a1 1 0 010-1.414z"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <div class="footer-brand">JunagadhBus</div>
+        <p>Unofficial live tracker for GSRTC buses operating from Junagadh Division, Gujarat.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Key Routes</div>
+        <a href="#">Junagadh — Veraval</a>
+        <a href="#">Junagadh — Somnath</a>
+        <a href="#">Junagadh — Keshod</a>
+        <a href="#">Junagadh — Jetpur</a>
+        <a href="#">Junagadh — Girnar</a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Information</div>
+        <a href="#">About GSRTC</a>
+        <a href="#">Depot Contact</a>
+        <a href="#">Feedback</a>
+        <a href="#">Disclaimer</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 JunagadhBus Tracker &nbsp;·&nbsp; For Saurashtra Commuters</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
